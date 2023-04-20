@@ -28,7 +28,7 @@ func main() {
     flag.Parse()
 
     if showVersion {
-        fmt.Println("bincontentcp version", version)
+        fmt.Println("bin-cp", version)
         return
     }
 
