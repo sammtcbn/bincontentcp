@@ -15,3 +15,8 @@ go run bincontentcp.go -source /path/to/source/file -dest /path/to/destination/f
 ```
 
 This will copy 50 bytes of data starting from the 100th byte of the source file to the destination file starting at the 200th byte. Note that if the destination file does not exist, the tool will create it automatically.
+
+To build the tool, you can run this:
+```
+go build -o bincontentcp bincontentcp.go
+```

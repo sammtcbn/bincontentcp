@@ -7,6 +7,8 @@ import (
     "os"
 )
 
+const version = "1.0"
+
 func main() {
     var (
         sourcePath   string
@@ -14,14 +16,21 @@ func main() {
         sourceOffset int64
         destOffset   int64
         length       int64
+        showVersion  bool
     )
 
-    flag.StringVar(&sourcePath,  "source",        "", "source file path")
-    flag.StringVar(&destPath,    "dest",          "", "destination file path")
-    flag.Int64Var(&sourceOffset, "source-offset", 0,  "source offset")
-    flag.Int64Var(&destOffset,   "dest-offset",   0,  "destination offset")
-    flag.Int64Var(&length,       "length",        0,  "length of data to copy")
+    flag.StringVar(&sourcePath,  "source",        "",   "source file path")
+    flag.StringVar(&destPath,    "dest",          "",   "destination file path")
+    flag.Int64Var(&sourceOffset, "source-offset", 0,    "source offset")
+    flag.Int64Var(&destOffset,   "dest-offset",   0,    "destination offset")
+    flag.Int64Var(&length,       "length",        0,    "length of data to copy")
+    flag.BoolVar(&showVersion,   "version",       false,"display version number")
     flag.Parse()
+
+    if showVersion {
+        fmt.Println("bincontentcp version", version)
+        return
+    }
 
     if sourcePath == "" || destPath == "" || length == 0 {
         fmt.Println("Please specify source file path, destination file path, and length")
