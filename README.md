@@ -71,7 +71,7 @@ This tool can calculate the checksum for the file.
 
 Usage:
 ```
-./bin-sha256 -file <file path> [-start Starting_Offset] [-end Ending_Offset] [-length Length]
+./bin-sha256 -file <file path> [-start Starting_Offset] [-end Ending_Offset] [-length Length] [-outbin binary file for output]
 ```
 
 Example:
@@ -80,6 +80,7 @@ Example:
 ./bin-sha256 -file 1234.txt -start 2 
 ./bin-sha256 -file 1234.txt -start 2 -end 10
 ./bin-sha256 -file 1234.txt -start 2 -length 7
+./bin-sha256 -file 1234.txt -start 2 -length 7 -outbin sha256hex.bin
 ```
 
 # build executable

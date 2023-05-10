@@ -68,6 +68,7 @@ func main() {
 	startOffset := flag.Int64  ("start",   0,    "Starting Offset")
 	endOffset   := flag.Int64  ("end",     -1,   "Ending Offset")
 	length      := flag.Int64  ("length",  -1,   "Length of the range, ignored if end offset is specified")
+	outbinPath  := flag.String ("outbin",  "",   "Output to BinFile")
 	flag.Parse()
 
     // Validate command-line flags
@@ -81,6 +82,16 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%x\n", checksum)
+	if (*outbinPath == "") {
+		fmt.Printf("%x\n", checksum)
+	} else {
+		// Open file
+		file, err := os.Create(*outbinPath)
+		if err != nil {
+			panic(err)
+		}
+		defer file.Close()
+		file.Write(checksum)
+	}
 }
 
