@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"crypto/sha256"
 	"fmt"
 	"io"
@@ -15,6 +16,15 @@ func calculateChecksum(filename string, offset int64, endOffset int64, length in
 	}
 	defer file.Close()
 
+	// Get the file size if endOffset is not specified
+	if endOffset == -1 {
+		fileInfo, err := file.Stat()
+		if err != nil {
+			return nil, err
+		}
+		endOffset = fileInfo.Size()
+	}
+
 	// Set the position for reading the specified range
 	_, err = file.Seek(offset, io.SeekStart)
 	if err != nil {
@@ -22,7 +32,7 @@ func calculateChecksum(filename string, offset int64, endOffset int64, length in
 	}
 
 	// Calculate the length of the range
-	if length == 0 {
+	if length == -1 {
 		length = endOffset - offset
 	}
 
@@ -53,16 +63,24 @@ func calculateChecksum(filename string, offset int64, endOffset int64, length in
 }
 
 func main() {
-	filename := "example.txt" // Replace with the filename of the file to calculate checksum
-	offset := int64(0)        // Starting offset
-	endOffset := int64(0)     // Ending offset, takes precedence if specified
-	length := int64(1024)     // Length of the range, ignored if end offset is specified
+	// Define command-line arguments
+	filePath    := flag.String ("file",    "",   "File path")
+	startOffset := flag.Int64  ("start",   0,    "Starting Offset")
+	endOffset   := flag.Int64  ("end",     -1,   "Ending Offset")
+	length      := flag.Int64  ("length",  -1,   "Length of the range, ignored if end offset is specified")
+	flag.Parse()
 
-	checksum, err := calculateChecksum(filename, offset, endOffset, length)
+    // Validate command-line flags
+    if *filePath == "" {
+        fmt.Println("Error: please specify file path")
+        os.Exit(1)
+    }
+
+	checksum, err := calculateChecksum(*filePath, *startOffset, *endOffset, *length)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("SHA256 Checksum: %x\n", checksum)
+	fmt.Printf("%x\n", checksum)
 }
 
