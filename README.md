@@ -6,7 +6,7 @@ Here's a tool for generating a binary file filled with a specified hexadecimal v
 
 Usage:
 ```
-./generate-binary-file -hex <hexadecimal value> -size <file size> -file <file path>
+./bin-create -hex <hexadecimal value> -size <file size> -file <file path> -bs <block size>
 ```
 
 You can use this command to generate a binary file filled with the specified hexadecimal value:
@@ -16,6 +16,14 @@ $ go run main.go -hex "FF" -size 4096 -file "output.bin"
 ```
 
 This command will generate a 4KB binary file filled with the hexadecimal value "FF" at the path "output.bin".
+
+For example, to generate a 1GB binary file filled with the hexadecimal value "FF" using a block size of 1MB and save it as "output.bin" in the current directory, run the following command:
+
+```
+$ ./bin-create -hex "FF" -size 1073741824 -file "output.bin" -bs 1048576
+```
+
+This will write 1MB blocks of "FF" to the file until the file size is reached.
 
 ## bin-cp
 
