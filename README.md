@@ -65,9 +65,31 @@ $ go run bin-fill.go -file example.bin -start 10 -end 20 -char 0A
 
 This will replace all binary between position 10 and 20 in the file example.bin with the hex character 0A.
 
+## bin-sha256
+
+This tool can calculate the checksum for the file.
+
+Usage:
+```
+./bin-sha256 -file <file path> [-start Starting_Offset] [-end Ending_Offset] [-length Length]
+```
+
+Example:
+```
+./bin-sha256 -file 1234.txt
+./bin-sha256 -file 1234.txt -start 2 
+./bin-sha256 -file 1234.txt -start 2 -end 10
+./bin-sha256 -file 1234.txt -start 2 -length 7
+```
+
 # build executable
 
-To build all tools, you can run this:
+To build all tools, you can run this in Linux:
 ```
 ./build.bash
+```
+
+For Windows:
+```
+build.bat
 ```
