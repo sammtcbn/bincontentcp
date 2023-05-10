@@ -6,8 +6,10 @@ Here's a tool for generating a binary file filled with a specified hexadecimal v
 
 Usage:
 ```
-./bin-create -hex <hexadecimal value> -size <file size> -file <file path> -bs <block size>
+./bin-create -size <file size> -file <file path> -bs <block size> [-hex <hexhexadecimal value> | -randhex]
 ```
+
+-randhex flag can be used to generate a random hexadecimal value for each byte of the file.
 
 You can use this command to generate a binary file filled with the specified hexadecimal value:
 
@@ -24,6 +26,7 @@ $ ./bin-create -hex "FF" -size 1073741824 -file "output.bin" -bs 1048576
 ```
 
 This will write 1MB blocks of "FF" to the file until the file size is reached.
+
 
 ## bin-cp
 
